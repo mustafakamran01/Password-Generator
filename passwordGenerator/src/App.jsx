@@ -4,11 +4,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  // Getting all the variables whose state needs to be changes in UI
   const [password, setPassword] = useState("")
   const [length, setLength] = useState(8)
   const [charAllowed, setCharAllowed] = useState(false)
   const [numberAllowed, setNumberAllowed] = useState(false)
 
+  // Creating a method to generate random password
   const generatePassword = useCallback( () => {
     let pass = ""
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijhklmnopqrstuvwxyz"
@@ -23,12 +25,15 @@ function App() {
     setPassword(pass)
   }, [length, numberAllowed, charAllowed, setPassword])
 
+  // Using useEffect to render the code if any dependencies is change
   useEffect( () => {
     generatePassword()
   }, [length, charAllowed, numberAllowed, setPassword])
 
+  // Creating a variable to store the reference of input box (password)
   let passwordRef = useRef(null)
 
+  // Copying text(password) to clipboard
   const copyToClipboard = () => {
     passwordRef.current?.select()
     passwordRef.current?.setSelectionRange(0, 10)
