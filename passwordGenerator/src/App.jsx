@@ -112,15 +112,12 @@ function App() {
         
         <input
         type="text"
-        value={password}
         placeholder='password'
         readOnly
-        ref={passwordRef}
         className="flex-1 px-10 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 bg-amber-100 text-black"
         />
 
         <button
-        onClick={copyToClipboard}
         className="px-4 py-2 rounded-md shadow-sm border hover:brightness-95 active:scale-95 transition"
         title="Copy to clipboard"
         >Copy</button>
@@ -145,7 +142,6 @@ function App() {
         <label className="inline-flex items-center gap-2 text-stone-900">
         <input
         type="checkbox"
-        onChange={ () => setCharAllowed( (prev) => !prev)}
         className="w-4 h-4"/>
         <span>Character</span>
         </label>
@@ -153,7 +149,6 @@ function App() {
         <label className="inline-flex items-center gap-2 text-stone-900">
         <input
         type="checkbox"
-        onChange={ () => setNumberAllowed( (prev) => !prev)}
         className="w-4 h-4"/>
         <span>Number</span>
         </label>
@@ -161,7 +156,6 @@ function App() {
       </div>
 
     </div>
-
   )
 }
 
