@@ -102,7 +102,30 @@ import './App.css'
 
 function App() {
 
-  
+  const [password, setPassword] = useState("")
+  const [length, setLength] = useState(8)
+  const [charAllowed, setCharAllowed] = useState(false)
+  const [numberAllowed, setNumberAllowed] = useState(false)
+
+  const generatePassword = useCallback( () => {
+    let pass = ""
+    let str = "BCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+    if (charAllowed) str += "`~!@#$%^&*()_-+={[}]|;:'<,>./?"
+    if (numberAllowed) str += "1234567890"
+
+    for (let i = 1; i <= length; i++) {
+      let randomChar = Math.floor(Math.random() * str.length)
+      pass += str.charAt(randomChar)
+    }
+
+    setPassword(pass)
+
+  }, [length, charAllowed, numberAllowed, setPassword])
+
+  useEffect( () => {
+    generatePassword()
+  }, [length, charAllowed, numberAllowed])
 
   return(
 
@@ -114,6 +137,7 @@ function App() {
         type="text"
         placeholder='password'
         readOnly
+        value={password}
         className="flex-1 px-10 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 bg-amber-100 text-black"
         />
 
@@ -142,6 +166,7 @@ function App() {
         <label className="inline-flex items-center gap-2 text-stone-900">
         <input
         type="checkbox"
+        onChange={ () => setCharAllowed( (prev) => !prev)}
         className="w-4 h-4"/>
         <span>Character</span>
         </label>
@@ -149,6 +174,7 @@ function App() {
         <label className="inline-flex items-center gap-2 text-stone-900">
         <input
         type="checkbox"
+        onChange={ () => setNumberAllowed( (prev) => !prev)}
         className="w-4 h-4"/>
         <span>Number</span>
         </label>
